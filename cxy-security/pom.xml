@@ -6,6 +6,7 @@
     <artifactId>cxy-security</artifactId>
     <version>1.0.0</version>
     <name>cxy-security</name>
+    <packaging>pom</packaging>
     <description>Demo project for Spring Boot</description>
 
     <!--设置子模块 在对该项目打包时，也会作用到子模块-->
@@ -22,6 +23,7 @@
         <platform.version>Brussels-SR4</platform.version>
         <spring-cloud.version>Dalston.SR2</spring-cloud.version>
         <encoding>UTF-8</encoding>
+        <cxy-security.version>1.0.0</cxy-security.version>
     </properties>
 
     <!--dependencyManagement中定义的依赖，在其他项目引用时将不再需要指定版本号-->

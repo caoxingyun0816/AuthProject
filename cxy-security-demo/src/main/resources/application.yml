@@ -1,0 +1,18 @@
+
+server:
+  port: 8888
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.3.12:3306/ecmoho
+    username: root
+    password: root
+#    关掉session存储
+  session:
+    store-type: none
+#    security默认开启 登录时需要验证
+security:
+  basic:
+    enabled: false

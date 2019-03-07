@@ -3,14 +3,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.cxy.security</groupId>
+		<artifactId>cxy-security</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../cxy-security</relativePath>
 	</parent>
 	<groupId>com.cxy.security</groupId>
 	<artifactId>cxy-security-demo</artifactId>
-	<version>1.0.0</version>
+	<version>${cxy-security.version}</version>
 	<name>cxy-security-demo</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -20,24 +20,48 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<groupId>com.cxy.security</groupId>
+			<artifactId>cxy-security-browser</artifactId>
+			<version>${cxy-security.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
+			<artifactId>spring-boot-test</artifactId>
+			<version>2.1.3.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>5.1.5.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
+			<!--该插件是用来项目打包得，将项目引用的其他的jar都打入到jar中，使打出的jar包是可执行的服务-->
+			<!--打包后就可以将jar上传到服务器上然后用java命令执行 java -jar a.jar-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.1.3.RELEASE</version>
+				<executions>
+					<execution>
+						<goals>
+							<!--重新打包-->
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
+		<!--打包的最终名称-->
+		<finalName>demo</finalName>
 	</build>
-
 </project>

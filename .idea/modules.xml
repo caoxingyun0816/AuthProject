@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/AuthProject.iml" filepath="$PROJECT_DIR$/.idea/AuthProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cxy-security/cxy-security.iml" filepath="$PROJECT_DIR$/cxy-security/cxy-security.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cxy-security-app/cxy-security-app.iml" filepath="$PROJECT_DIR$/cxy-security-app/cxy-security-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cxy-security-browser/cxy-security-browser.iml" filepath="$PROJECT_DIR$/cxy-security-browser/cxy-security-browser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cxy-security-core/cxy-security-core.iml" filepath="$PROJECT_DIR$/cxy-security-core/cxy-security-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cxy-security-demo/cxy-security-demo.iml" filepath="$PROJECT_DIR$/cxy-security-demo/cxy-security-demo.iml" />
+    </modules>
+  </component>
+</project>
