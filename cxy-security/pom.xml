@@ -2,40 +2,64 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.3.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
     <groupId>com.cxy.security</groupId>
     <artifactId>cxy-security</artifactId>
     <version>1.0.0</version>
     <name>cxy-security</name>
     <description>Demo project for Spring Boot</description>
 
+    <!--设置子模块 在对该项目打包时，也会作用到子模块-->
+    <modules>
+        <module>../cxy-security-app</module>
+        <module>../cxy-security-browser</module>
+        <module>../cxy-security-core</module>
+        <module>../cxy-security-demo</module>
+    </modules>
+
+     <!--统一管理项目版本-->
     <properties>
         <java.version>1.8</java.version>
+        <platform.version>Brussels-SR4</platform.version>
+        <spring-cloud.version>Dalston.SR2</spring-cloud.version>
+        <encoding>UTF-8</encoding>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <!--dependencyManagement中定义的依赖，在其他项目引用时将不再需要指定版本号-->
+    <!--有这两个jar将会将项目的jar和版本管理起来-->
+    <dependencyManagement>
+        <dependencies>
+            <!--spring io 会自动引入你指的的jar包的版本 不需要自己指定版本号 自己指定可能会导致各个jar包间版本不兼容-->
+            <dependency>
+                <groupId>io.spring.platform</groupId>
+                <artifactId>platform-bom</artifactId>
+                <version>${platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
+            <!--maven的编译版本-->
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <!--源文件的jdk版本-->
+                    <source>${java.version}</source>
+                    <!--目标文件jdk版本-->
+                    <target>${java.version}</target>
+                    <encoding>${encoding}</encoding>
+                </configuration>
             </plugin>
         </plugins>
     </build>
