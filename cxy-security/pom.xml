@@ -24,6 +24,8 @@
         <spring-cloud.version>Dalston.SR2</spring-cloud.version>
         <encoding>UTF-8</encoding>
         <cxy-security.version>1.0.0</cxy-security.version>
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+        <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
     </properties>
 
     <!--dependencyManagement中定义的依赖，在其他项目引用时将不再需要指定版本号-->

@@ -17,10 +17,10 @@ public class WireMockServer {
         //清空以前的配置
         WireMock.removeAllMappings();
         //模拟请求
-        mockkService("/order/1","1");
+        mockService("/order/1","1");
     }
 
-    public static void mockkService(String url, String fileName) throws IOException {
+    public static void mockService(String url, String fileName) throws IOException {
         ClassPathResource classPathResource = new ClassPathResource("d:/test/"+fileName+".txt");
         String content = StringUtils.join(FileUtils.readLines(classPathResource.getFile(),"UTF-8").toString(),"\n");
         WireMock.stubFor(WireMock.get(WireMock.urlPathEqualTo(url)).willReturn(WireMock.aResponse().withBody(content).withStatus(200)));
