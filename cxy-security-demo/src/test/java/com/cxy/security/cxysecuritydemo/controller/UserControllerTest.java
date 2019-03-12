@@ -1,6 +1,5 @@
 package com.cxy.security.cxysecuritydemo.controller;
 
-import com.jayway.jsonpath.JsonPath;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,5 +66,27 @@ public class UserControllerTest {
         .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("111"))
                   .andReturn().getResponse().getContentAsString();
         System.out.println(string);
+    }
+
+    @Test
+    public void whenUpdateUserSuccess() throws Exception {
+//        Date birthDay = new Date(LocalDateTime.now().plusYears(2).atZone(ZoneId.systemDefault()).toInstant().toString());
+        Date birthDay = new Date();
+        String content = "{\"id\":\"1\",\"userName\":\"cxy\",\"passWord\":\"cxy\",\"age\":22,\"birthDay\":" + birthDay.getTime() + "}";
+        String string = mockMvc.perform(MockMvcRequestBuilders.put("/user/1")
+                .content(content)
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+//                json $代表查询的返回的根
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"))
+                .andReturn().getResponse().getContentAsString();
+        System.out.println(string);
+    }
+
+    @Test
+    public void whenDeleteUserSuccess() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/user/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

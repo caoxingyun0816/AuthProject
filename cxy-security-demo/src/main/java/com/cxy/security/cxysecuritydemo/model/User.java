@@ -1,11 +1,13 @@
 package com.cxy.security.cxysecuritydemo.model;
 
+import com.cxy.security.cxysecuritydemo.valid.annotation.MyAnnotation;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 /***
@@ -14,9 +16,11 @@ import java.util.Date;
 @Data
 public class User {
 
-    public interface UserSimpleView {}
+    public interface UserSimpleView {
+    }
 
-    public interface UserDetailView  extends UserSimpleView {}
+    public interface UserDetailView extends UserSimpleView {
+    }
 
     @ApiModelProperty(value = "id")
     private String id;
@@ -31,14 +35,19 @@ public class User {
     @ApiModelProperty(value = "密码", required = true)
     private String passWord;
 
-//    JsonView 可以控制在返回相同对象的时候显示那些字段
+    //JsonView 可以控制在返回相同对象的时候显示那些字段
     @JsonView(UserDetailView.class)
     @NotNull(message = "年龄不允许为空!")
     @ApiModelProperty(value = "年龄", required = true)
     private Integer age;
 
     @JsonView(UserDetailView.class)
-    @NotNull(message = "生日不允许为空!")
-    @ApiModelProperty(value = "生日", required = true)
+    //必须是过去的时间
+    //@Past
+    //必须是未来的时间
+    @Past(message = "生日必须是过去的时间!")
     private Date birthDay;
+
+    @MyAnnotation(message = "手机号不能为空!")
+    private String phone;
 }
