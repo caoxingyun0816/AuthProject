@@ -73,7 +73,8 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{id:\\d+}")
-    public void update(@PathVariable(name = "id") Integer id) {
+    public void delete(@PathVariable(name = "id") Integer id) {
+        System.out.println("delete start");
         System.out.println(id);
     }
 }

@@ -1,4 +1,4 @@
-package valid;
+package com.cxy.security.cxysecuritycore.valid;
 
 import org.apache.commons.lang.StringUtils;
 

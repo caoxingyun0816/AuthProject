@@ -89,4 +89,5 @@ public class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
+
 }

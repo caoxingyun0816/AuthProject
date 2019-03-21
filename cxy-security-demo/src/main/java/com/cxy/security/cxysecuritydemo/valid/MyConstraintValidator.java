@@ -1,4 +1,4 @@
-package com.cxy.security.cxysecuritydemo.valid.annotation;
+package com.cxy.security.cxysecuritydemo.valid;
 
 import org.springframework.util.ObjectUtils;
 

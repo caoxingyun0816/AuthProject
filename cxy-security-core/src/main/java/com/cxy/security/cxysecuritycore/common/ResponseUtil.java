@@ -1,9 +1,9 @@
-package common;
+package com.cxy.security.cxysecuritycore.common;
 
-import exception.BusinessRunTimeException;
-import model.ErrorCode;
-import model.ErrorCodeInterface;
-import model.ResponseVO;
+import com.cxy.security.cxysecuritycore.exception.BusinessRunTimeException;
+import com.cxy.security.cxysecuritycore.model.ErrorCode;
+import com.cxy.security.cxysecuritycore.model.ErrorCodeInterface;
+import com.cxy.security.cxysecuritycore.model.ResponseVO;
 
 public class ResponseUtil {
 

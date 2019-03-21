@@ -1,4 +1,4 @@
-package com.cxy.security.cxysecuritydemo.valid.annotation;
+package com.cxy.security.cxysecuritydemo.valid;
 
 /***
  * Created by Caoxingyun on 2019/03/12

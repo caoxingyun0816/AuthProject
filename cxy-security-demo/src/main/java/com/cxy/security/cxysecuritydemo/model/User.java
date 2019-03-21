@@ -1,6 +1,6 @@
 package com.cxy.security.cxysecuritydemo.model;
 
-import com.cxy.security.cxysecuritydemo.valid.annotation.MyAnnotation;
+import com.cxy.security.cxysecuritydemo.valid.MyAnnotation;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

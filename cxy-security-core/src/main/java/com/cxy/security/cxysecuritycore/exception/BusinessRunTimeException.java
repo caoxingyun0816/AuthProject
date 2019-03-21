@@ -1,7 +1,10 @@
-package exception;
+package com.cxy.security.cxysecuritycore.exception;
 
-import model.ErrorCodeInterface;
+import com.cxy.security.cxysecuritycore.model.ErrorCodeInterface;
 
+/***
+ *
+ */
 public class BusinessRunTimeException extends RuntimeException {
 
     private ErrorCodeInterface errorCode;

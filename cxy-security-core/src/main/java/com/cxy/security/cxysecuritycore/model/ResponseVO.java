@@ -1,4 +1,4 @@
-package model;
+package com.cxy.security.cxysecuritycore.model;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

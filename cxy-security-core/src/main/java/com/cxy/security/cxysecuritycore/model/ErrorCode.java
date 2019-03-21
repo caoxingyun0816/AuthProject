@@ -1,4 +1,4 @@
-package model;
+package com.cxy.security.cxysecuritycore.model;
 
 public enum ErrorCode implements ErrorCodeInterface {
 

@@ -1,17 +1,15 @@
-package common;
+package com.cxy.security.cxysecuritycore.common;
 
-import exception.BusinessRunTimeException;
-import model.ErrorCode;
-import model.ResponseVO;
+import com.cxy.security.cxysecuritycore.exception.BusinessRunTimeException;
+import com.cxy.security.cxysecuritycore.model.ErrorCode;
+import com.cxy.security.cxysecuritycore.model.ResponseVO;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
 
 /**
  * 基础控制器

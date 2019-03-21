@@ -1,4 +1,4 @@
-package valid;
+package com.cxy.security.cxysecuritycore.valid;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
