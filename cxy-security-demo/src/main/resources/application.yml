@@ -1,4 +1,3 @@
-
 server:
   port: 8888
 
@@ -15,4 +14,4 @@ spring:
 #    security默认开启 登录时需要验证
 security:
   basic:
-    enabled: false
+    enabled: true
