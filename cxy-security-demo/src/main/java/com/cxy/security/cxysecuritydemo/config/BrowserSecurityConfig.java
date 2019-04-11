@@ -1,5 +1,9 @@
 package com.cxy.security.cxysecuritydemo.config;
 
+import com.cxy.security.cxysecuritydemo.service.impl.MyAuthenticationFailureHandler;
+import com.cxy.security.cxysecuritydemo.service.impl.MyAuthenticationSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +20,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Value("${security.browser.loginPage}")
+    private String loginPage;
+
+    @Autowired
+    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
+    @Autowired
+    private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
     //用户密码加密和匹配
 //    String encode(CharSequence var1);
 
@@ -29,7 +41,15 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.formLogin()//表单登录
+                .loginPage("/authentication/login")//登录跳转路径
+                .loginProcessingUrl("/authentication/loginAction")//登录请求路径
+                .successHandler(myAuthenticationSuccessHandler)//登陆成功后用自定义handler处理请求
+                .failureHandler(myAuthenticationFailureHandler)//登陆失败后用自定义handler处理请求
                 //http.httpBasic() 默认登录
-        .and().authorizeRequests().anyRequest().authenticated();//任何请求都需要验证
+        .and().authorizeRequests()
+                .antMatchers("/authentication/login",loginPage).permitAll()//允许该路径访问
+                .anyRequest().authenticated()//其它任何请求都需要验证
+        .and()
+        .csrf().disable();//关闭跨域访问
     }
 }
