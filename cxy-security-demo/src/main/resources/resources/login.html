@@ -22,10 +22,12 @@
             <input name="username" id = "username" type="text"  value="用户名" onfocus="this.value=''" onblur="if(this.value==''){this.value='用户名'}"/>
             <span id="password_text" onclick="this.style.display='none';document.getElementById('password').style.display='block';document.getElementById('password').focus().select();" >密码</span>
             <input name="password" type="password" id="password" style="display:none;" onblur="if(this.value==''){document.getElementById('password_text').style.display='block';this.style.display='none'};"/>
+            <input name = "code" value="验证码" id = "code" type="text" />
+            <img id = "imageId" alt="验证码" src="/imageCode/imageCode" onclick="changeImage()"/>
             <input value="登录" style="width:100%;" type="submit"/>
         </form>
     </div>
-    <div class="copyright">CXY 版权所有©2016-2018 技术支持电话：123-456789</div>
+    <div class="copyright">CXY 版权所有©2016-2019 技术支持电话：123-456789</div>
 </div>
 <div style="text-align:center;">
 </div>

@@ -18,6 +18,19 @@ import java.util.Date;
  *          如何将第三方中没用component注解的filter加入到springboot的项目中的过滤器链上
  */
 
+/***
+ * 认证在多个请求之间共享
+ * 认证信息Authencation放到SecurityContext中
+ * 再放到SecurityContextHolder中。
+ * 从SecurityContextHolder 中都可以获得当前登录的认证信息。
+ * SecurityContextPersistenceFilter
+ * 在过滤器的最顶端，当请求到达时验证session是否有验证信息
+ * 有就放到线程里。在请求结束后拿出线程里的 验证信息放到session中。
+ * 不同的请求都可以在同一个session中拿到认证信息。
+ * 一个请求之间都可以在SecurityContextHolder中拿到认证信息。
+ * 获取用户信息
+ * SecurityContextHolder.getContext().getAuthentication();
+ */
 //@Component
 public class TimeFilter implements Filter {
 

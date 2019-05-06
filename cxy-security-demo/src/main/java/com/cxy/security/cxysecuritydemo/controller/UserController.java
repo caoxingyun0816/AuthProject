@@ -4,8 +4,10 @@ import com.cxy.security.cxysecuritydemo.model.User;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,6 +20,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    @GetMapping("/getUserInfo")
+    public Object getUserInfo(){
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    @GetMapping("/getUserInfo/detail")
+    public Object getUserInfo(@AuthenticationPrincipal UserDetails userDetails){
+        return userDetails;
+    }
 
     @GetMapping
     //@PageableDefault spring data 默认的分页工具 Pageable 分页参数
