@@ -1,16 +1,16 @@
 package com.cxy.security.cxysecuritydemo.service.impl;
 
+import com.cxy.security.cxysecuritydemo.config.ImageCodeConfig;
 import com.cxy.security.cxysecuritydemo.util.ImageUtil;
 import com.cxy.security.cxysecuritydemo.model.ImageCode;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
 /***
  * Created by Caoxingyun on 2019/04/11
  */
-@Service("imageCodeService")
-public class ImageCodeServiceImpl implements ImageCodeService{
+//@Service("imageCodeService")
+public class ImageCodeServiceImpl implements ImageCodeService {
 
     @Override
     public ImageCode createImageCode(HttpServletRequest request) {

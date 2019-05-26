@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -18,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.file.PathMatcher;
 
 /***
  * Created by Caoxingyun on 2019/04/19
@@ -32,6 +34,9 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         //登录请求校验验证码
+        //可以自定义配置拦截的路径 对于通配符 /user/* 可以有Path
+//        AntPathMatcher pathMatcher = new AntPathMatcher();
+//        pathMatcher.match("/user/*",request.getRequestURI());
         if (StringUtils.equals("/authentication/loginAction", request.getRequestURI()) &&
                 StringUtils.equals("post", request.getMethod())) {
             validImageCode(new ServletWebRequest(request));
