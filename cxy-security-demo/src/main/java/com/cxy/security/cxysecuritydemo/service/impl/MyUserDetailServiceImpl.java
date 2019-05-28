@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * Created by Caoxingyun on 2019/03/26
  */
 @Component//自动注入
-public class MyUserDetailServiceImpl implements UserDetailsService {
+public class MyUserDetailServiceImpl implements UserDetailsService{
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 //    自定义用户服务
