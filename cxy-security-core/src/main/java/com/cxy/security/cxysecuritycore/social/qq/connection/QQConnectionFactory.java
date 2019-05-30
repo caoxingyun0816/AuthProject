@@ -11,8 +11,9 @@ public class QQConnectionFactory extends OAuth2ConnectionFactory<QQ> {
      * Create a {@link OAuth2ConnectionFactory}.
      *
      * @param providerId the provider id e.g. "facebook"
+     *  //QQConnectionFactory 创建 QQServiceProvider 和 QQAdapter 完成OAuth2全部步骤
      */
-    public QQConnectionFactory(String providerId, String appId, String appKey) {
-        super(providerId, new QQServiceProvider(appId, appKey), new QQAdapter());
+    public QQConnectionFactory(String providerId, String appId, String appSecret) {
+        super(providerId, new QQServiceProvider(appId, appSecret), new QQAdapter());
     }
 }

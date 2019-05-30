@@ -9,13 +9,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.security.SocialUser;
+import org.springframework.social.security.SocialUserDetails;
+import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 
 /***
  * Created by Caoxingyun on 2019/03/26
  */
 @Component//自动注入
-public class MyUserDetailServiceImpl implements UserDetailsService{
+public class MyUserDetailServiceImpl implements UserDetailsService, SocialUserDetailsService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 //    自定义用户服务
@@ -24,13 +27,14 @@ public class MyUserDetailServiceImpl implements UserDetailsService{
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     //根据用户名查找用户
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("username is ：" + username);
         logger.info("数据库 password is ：" + passwordEncoder.encode("123456"));
         //return new User(username, "123456", AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
-        return new User(username, passwordEncoder.encode("123456"), true,true,true,true,AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return new User(username, passwordEncoder.encode("123456"), true, true, true, true, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
 
         //        Collection<? extends GrantedAuthority>
 //        继承GrantedAuthority 的集合 ,例如List<GrantedAuthority> authorities;
@@ -53,5 +57,14 @@ public class MyUserDetailServiceImpl implements UserDetailsService{
 //
 //        boolean isEnabled(); //账户是否被冻结
 //        可以自己也user实现userdetail 然后自己校验逻辑
+    }
+
+    //根据第三方返回的userId构建用户信息
+    @Override
+    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
+        logger.info("userId is ：" + userId);
+        logger.info("数据库 password is ：" + passwordEncoder.encode("123456"));
+        //return new User(username, "123456", AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return new SocialUser(userId, passwordEncoder.encode("123456"), true, true, true, true, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
 }

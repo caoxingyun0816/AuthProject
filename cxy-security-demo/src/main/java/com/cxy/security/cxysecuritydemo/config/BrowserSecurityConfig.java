@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -44,6 +45,10 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private SpringSocialConfigurer springSocialConfigurer;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -59,6 +64,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         return tokenRepository;
     }
 
+    //社交登录 url oath/provideId oath开头/provideId
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
@@ -68,6 +75,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/authentication/loginAction")//登录请求路径
                 .successHandler(myAuthenticationSuccessHandler)//登陆成功后用自定义handler处理请求
                 .failureHandler(myAuthenticationFailureHandler)//登陆失败后用自定义handler处理请求
+                .and()
+                .apply(springSocialConfigurer)//加入SpringSocial拦截器
                 .and()
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())//设置tokenRepository
