@@ -2,14 +2,19 @@ package com.cxy.security.cxysecuritydemo.controller;
 
 import com.cxy.security.cxysecuritydemo.model.User;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.ServletWebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +25,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    @Autowired
+    private ProviderSignInUtils providerSignInUtils;
 
     @GetMapping("/getUserInfo")
     public Object getUserInfo(){
@@ -88,5 +96,14 @@ public class UserController {
     public void delete(@PathVariable(name = "id") Integer id) {
         System.out.println("delete start");
         System.out.println(id);
+    }
+
+    @PostMapping(value = "/register")
+    public void register(User user, HttpServletRequest request){
+        //不管是注册用户还是绑定用户都会拿到用户的唯一标识userId;
+        String userId = user.getUserName();
+        //userId绑定第三方信息，放到数据库中
+        providerSignInUtils.doPostSignUp(userId,new ServletWebRequest(request));
+
     }
 }

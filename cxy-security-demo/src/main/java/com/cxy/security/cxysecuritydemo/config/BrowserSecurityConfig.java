@@ -84,7 +84,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 //http.httpBasic() 默认登录
                 .and().authorizeRequests()
-                .antMatchers("/authentication/login", loginPage, "/imageCode/imageCode").permitAll()//允许该路径访问
+                .antMatchers("/authentication/login", loginPage, "/imageCode/imageCode","/user/register").permitAll()//允许该路径访问
                 .anyRequest().authenticated()//其它任何请求都需要验证
                 .and()
                 .csrf().disable();//关闭跨域访问

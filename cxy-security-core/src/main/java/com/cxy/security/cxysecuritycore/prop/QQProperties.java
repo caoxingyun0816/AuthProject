@@ -12,5 +12,8 @@ public class QQProperties extends SocialProperties {
     //服务提供商的标识
     private String provideId;
 
+    //注册URL
+    private String signUpUrl;
+
     private String authUrl;
 }
