@@ -57,3 +57,133 @@ public class Demo {
 		}
 	}
 }
+
+数组比较特殊
+int[] intArray = new int[]{1,2};
+Class intClass = intArray.getClass();
+
+intClass.getName() --> [I
+intClass.getTypeName() --> int[]
+
+//获取数组的元素类型
+intClass.getComponentType().getName(); int
+intClass.getComponentType().getTypeName(); int
+
+数组类型
+数组类型：数组本质是一个对象，所以它也有自己的类型。
+例如对于int[] intArray，数组类型为class [I。数组类型中的[个数代表数组的维度，例如[代表一维数组，[[代表二维数组；[后面的字母代表数组元素类型，I代表int，一般为类型的首字母大写(long类型例外，为J)。
+
+class [B    //byte类型一维数组
+class [S    //short类型一维数组
+class [I    //int类型一维数组
+class [C    //char类型一维数组
+class [J    //long类型一维数组，J代表long类型，因为L被引用对象类型占用了
+class [F    //float类型一维数组
+class [D    //double类型一维数组
+class [Lcom.dada.Season    //引用类型一维数组
+class [[Ljava.lang.String  //引用类型二维数组
+
+//获取一个变量的类型
+Class<?> c = field.getType();
+//判断该变量是否为数组
+if (c.isArray()) {
+   //获取数组的元素类型
+   c.getComponentType()
+}
+
+创建和初始化数组
+Java反射为我们提供了java.lang.reflect.Array类用来创建和初始化数组。
+
+//创建数组， 参数componentType为数组元素的类型，后面不定项参数的个数代表数组的维度，参数值为数组长度
+Array.newInstance(Class<?> componentType, int... dimensions)
+
+//设置数组值，array为数组对象，index为数组的下标，value为需要设置的值
+Array.set(Object array, int index, int value)
+
+//获取数组的值，array为数组对象，index为数组的下标
+Array.get(Object array, int index)
+
+例子,用反射创建 int[] array = new int[]{1, 2}
+Object array = Array.newInstance(int.class, 2);
+Array.setInt(array , 0, 1);
+Array.setInt(array , 1, 2);
+
+反射的缺点
+没有任何一项技术是十全十美的，Java反射拥有强大功能的同时也带来了一些副作用。
+
+
+性能开销
+反射涉及类型动态解析，所以JVM无法对这些代码进行优化。因此，反射操作的效率要比那些非反射操作低得多。我们应该避免在经常被执行的代码或对性能要求很高的程序中使用反射。
+
+安全限制
+使用反射技术要求程序必须在一个没有安全限制的环境中运行。如果一个程序必须在有安全限制的环境中运行，如Applet，那么这就是个问题了。
+
+内部曝光
+由于反射允许代码执行一些在正常情况下不被允许的操作（比如访问私有的属性和方法），所以使用反射可能会导致意料之外的副作用－－代码有功能上的错误，降低可移植性。反射代码破坏了抽象性，因此当平台发生改变的时候，代码的行为就有可能也随着变化。
+
+
+反射属于动态编译
+
+因为反射的操作 主要通过JVM执行，所以时间成本会 高于 直接执行相同操作
+
+
+
+因为接口的通用性，Java的invoke方法是传object和object[]数组的。基本类型参数需要装箱和拆箱，产生大量额外的对象和内存开销，频繁促发GC。
+编译器难以对动态调用的代码提前做优化，比如方法内联。
+反射需要按名检索类和方法，有一定的时间开销。
+
+/ 特别注意：
+  // 1. 不带 "Declared"的方法支持取出包括继承、公有（Public） & 不包括有（Private）
+  // 2. 带 "Declared"的方法是支持取出包括公共（Public）、保护（Protected）、默认（包）访问和私有（Private），但不包括继承的构造函数
+
+<-- 4. Class类的其他常用方法 -->
+getSuperclass();
+// 返回父类
+
+String getName();
+// 作用：返回完整的类名（含包名，如java.lang.String ）
+
+Object newInstance();
+// 作用：快速地创建一个类的实例
+// 具体过程：调用默认构造器（若该类无默认构造器，则抛出异常
+// 注：若需要为构造器提供参数需使用java.lang.reflect.Constructor中的newInstance（）
+
+<-- 1. 通过Constructor 类对象获取类构造函数信息 -->
+  String getName()；// 获取构造器名
+  Class getDeclaringClass()；// 获取一个用于描述类中定义的构造器的Class对象
+  int getModifiers()；// 返回整型数值，用不同的位开关描述访问修饰符的使用状况
+  Class[] getExceptionTypes()；// 获取描述方法抛出的异常类型的Class对象数组
+  Class[] getParameterTypes()；// 获取一个用于描述参数类型的Class对象数组
+
+<-- 2. 通过Field类对象获取类属性信息 -->
+  String getName()；// 返回属性的名称
+  Class getDeclaringClass()； // 获取属性类型的Class类型对象
+  Class getType()；// 获取属性类型的Class类型对象
+  int getModifiers()； // 返回整型数值，用不同的位开关描述访问修饰符的使用状况
+  Object get(Object obj) ；// 返回指定对象上 此属性的值
+  void set(Object obj, Object value) // 设置 指定对象上此属性的值为value
+
+<-- 3. 通过Method 类对象获取类方法信息 -->
+  String getName()；// 获取方法名
+  Class getDeclaringClass()；// 获取方法的Class对象
+  int getModifiers()；// 返回整型数值，用不同的位开关描述访问修饰符的使用状况
+  Class[] getExceptionTypes()；// 获取用于描述方法抛出的异常类型的Class对象数组
+  Class[] getParameterTypes()；// 获取一个用于描述参数类型的Class对象数组
+
+<--额外：java.lang.reflect.Modifier类 -->
+// 作用：获取访问修饰符
+
+static String toString(int modifiers)
+// 获取对应modifiers位设置的修饰符的字符串表示
+
+static boolean isXXX(int modifiers)
+// 检测方法名中对应的修饰符在modifiers中的值
+
+
+反射机制的默认行为受限于Java的访问控制
+如，无法访问（ private ）私有的方法、字段
+
+void setAccessible(boolean flag)
+// 作用：为反射对象设置可访问标志
+// 规则：flag = true时 ，表示已屏蔽Java语言的访问检查，使得可以访问 & 修改对象的私有属性
+
