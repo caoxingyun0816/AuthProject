@@ -64,6 +64,74 @@
 
 </Configuration>
 
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" monitorInterval="30">
+    <Properties>
+        <Property name="log.path">d:/logs/demo</Property>
+        <Property name="defaultLevel">info</Property>
+        <!--<Property name="logstashUrl">${sys:logstashUrl}</Property>-->
+    </Properties>
+
+    <Appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        </console>
+
+        <!--<Gelf name="LogstashInfo" host="${logstashUrl}" port="7002" version="1.1" extractStackTrace="true"-->
+              <!--filterStackTrace="true" mdcProfiling="true" includeFullMdc="true" maximumMessageSize="8192"-->
+              <!--originHost="%host{fqdn}" additionalFieldTypes="fieldName1=String,fieldName2=Double,fieldName3=Long">-->
+            <!--<Field name="time" pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}" />-->
+            <!--<Field name="level" pattern="%level" />-->
+            <!--<Field name="message" pattern="(%F:%L) - %message" />-->
+            <!--<Field name="server" pattern="product-service" />-->
+        <!--</Gelf>-->
+
+        <!-- info日志 -->
+        <!--filePattern="${log.path}/info/info_%d{yyyy-MM-dd HH-mm}_%i.log 最小时分钟级别
+        即每分钟更新一猜次，将info.log以前的信息，写入到新生成的文件中，本次的日志依然保存在info.log中-->
+        <RollingFile name="InfoRollingFile" fileName="${log.path}/info/info.log" filePattern="${log.path}/info/info_%d{yyyy-MM-dd HH-mm}_%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n" />
+            <Policies>
+                <!-- 每24小时更新一次 -->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1" />
+                <!--每个文件大小最大为10M再多了就不在写入了 一般不会设置的-->
+                <!--<SizeBasedTriggeringPolicy size="10 MB"/>-->
+            </Policies>
+            <!-- 最多备份20个 超过这么多文件就不会再写入-->
+            <DefaultRolloverStrategy max="20" />
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!--info 级别匹配到了输出到文件，没匹配到丢弃-->
+        </RollingFile>
+
+         error日志
+        <RollingFile name="ErrorRollingFile" fileName="${log.path}/error/error.log" filePattern="${log.path}/error/error_%d{yyyy-MM-dd HH-mm}_%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n" />
+            <Policies>
+                <!-- 按天更新一次 -->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1" />
+                <!--每个文件大小最大为10M再多了就不在写入了 一般不会设置的-->
+                <!--<SizeBasedTriggeringPolicy size="10 MB"/>-->
+            </Policies>
+            <!-- 最多备份20个 -->
+            <DefaultRolloverStrategy max="20" />
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <logger name="org.springframework" level="INFO"></logger>
+        <Root level="${defaultLevel}">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="ErrorRollingFile"/>
+            <AppenderRef ref="InfoRollingFile"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
+
+
+
 Configuration：为根节点，有status和monitorInterval等多个属性
 
 status的值有 “trace”, “debug”, “info”, “warn”, “error” and “fatal”，用于控制log4j2日志框架本身的日志级别，如果将stratus设置为较低的级别就会看到很多关于log4j2本身的日志，如加载log4j2配置文件的路径等信息
